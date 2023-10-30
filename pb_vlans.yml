@@ -1,0 +1,14 @@
+---
+- name: Generate IOS Vlan Configuration
+  hosts: all
+  gather_facts: false
+  connection: local
+  tasks:
+    - name: ensure output folder exists
+      ansible.builtin.file:
+        path: output
+        state: directory
+    - name: use vlan template to generate files
+      ansible.builtin.template:
+        src: vlans.j2
+        dest: output/{{ inventory_hostname }}_vlans.cfg
